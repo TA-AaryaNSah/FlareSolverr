@@ -6,7 +6,7 @@ from pydantic import BaseModel
 app = FastAPI(title="FlareSolverr Proxy API", version="1.0")
 
 # Production URL configured via environment variable (No localhost fallback)
-FLARESOLVERR_URL = os.getenv("FLARESOLVERR_URL", "https://your-flaresolverr-service.onrender.com/v1")
+FLARESOLVERR_URL = os.getenv("FLARESOLVERR_URL", "https://flaresolverr-cifj.onrender.com/v1")
 
 class ScrapeRequest(BaseModel):
     url: str
