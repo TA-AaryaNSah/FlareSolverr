@@ -1,5 +1,12 @@
-FROM ghcr.io/flaresolverr/flaresolverr:latest
+FROM python:3.10-slim
 
-# Render dynamically binds the port to $PORT environment variable
-ENV PORT=8191
-EXPOSE 8191
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY main.py .
+
+EXPOSE 8000
+
+CMD uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}
