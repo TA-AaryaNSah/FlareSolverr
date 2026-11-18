@@ -1,13 +1,20 @@
 FROM python:3.10-slim
 
+# Install system build dependencies required for compiling wheels like curl_cffi
 RUN apt-get update && apt-get install -y \
+    build-essential \
+    gcc \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Install FastAPI, Uvicorn, and curl_cffi for Cloudflare TLS bypassing
-RUN pip install fastapi uvicorn curl_cffi pydantic
-
 WORKDIR /app
+
+# Copy requirements first to leverage Docker layer caching
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copy application files
 COPY main.py .
 
 EXPOSE 8000
