@@ -4,7 +4,8 @@ RUN apt-get update && apt-get install -y \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install fastapi uvicorn requests pydantic
+# Install FastAPI, Uvicorn, and curl_cffi for Cloudflare TLS bypassing
+RUN pip install fastapi uvicorn curl_cffi pydantic
 
 WORKDIR /app
 COPY main.py .
