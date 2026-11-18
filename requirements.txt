@@ -1,5 +1,0 @@
-fastapi
-uvicorn
-curl_cffi
-pydantic
-requests
